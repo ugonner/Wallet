@@ -15,13 +15,20 @@ public class UserController : ControllerBase
         _serviceManager = serviceManager;
     }
 
-    [HttpGet()]
-    public async Task<IActionResult> Login([FromBody] LoginDTO payload)
+    [HttpPost()]
+    public async Task<IActionResult> Register([FromBody] UserDTO payload)
     {
         
-        GenericResult<TokenDTO> result = await _serviceManager.UserService.LoginUser(payload);
+        GenericResult<UserDTO> result = await _serviceManager.UserService.RegisterUser(payload);
         Console.WriteLine($"result: {result.Data}");
         return Ok(result);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody()] LoginDTO payload)
+    {
+        var res = await _serviceManager.UserService.LoginUser(payload);
+        return Ok(res);
     }
 
 }

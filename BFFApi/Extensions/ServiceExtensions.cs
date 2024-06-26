@@ -6,9 +6,17 @@ using Repository;
 using Contracts.RepositoryContracts;
 using Services;
 using Presentation;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Configuration;
 
 public static class ServiceExtensions
 {
+// public static void ConfigureGlobalConfiguration( this IServiceCollection service)
+// {
+//    service.AddSingleton<IConfiguration, Configuration>();
+
+// }
+
     public static IServiceCollection ConfigureDbContext(this IServiceCollection service, IConfigurationRoot config)
     {
         return service.AddDbContext<RepositoryContext>((DbContextOptionsBuilder opt) => opt.UseMySQL($"{config.GetConnectionString("sqlConnection")}") );

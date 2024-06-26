@@ -9,7 +9,8 @@ public static class UserConfiguration {
                 UserId=1,
                 UserName = "ugonna",
                 Email = "ugonna@gmail.com",
-                Password = "thanks"
+                Password = "thanks",
+                RoleId = 1
             }
         );
     }

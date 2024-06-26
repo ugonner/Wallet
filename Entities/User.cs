@@ -1,6 +1,8 @@
 
 namespace Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class User
 {
     [Key]
@@ -15,5 +17,11 @@ public class User
     [Required(ErrorMessage = "password is required")]
     public string Password {get; set;}
     
-    public string? RefreshToken {get; set;}
+    public String RefreshToken {get; set;}
+
+
+    [ForeignKey(nameof(Role))]
+    public int RoleId {get; set;}
+
+    public Role Role {get; set;}
 }

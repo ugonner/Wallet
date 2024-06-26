@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 IConfigurationRoot config = builder.Configuration;
 
 
+//builder.Services.ConfigureGlobalConfiguration();
 builder.Services.ConfigureDbContext(config);
 builder.Services.ConfigureAutoMapper();
 builder.Services.ConfigureLogger();
@@ -37,6 +38,9 @@ builder.Services.AddAuthentication((opt) =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
+builder.Services.AddAuthorization();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -61,6 +65,11 @@ var summaries = new[]
 };
 
 app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 
 app.MapGet("/weatherforecast", () =>
