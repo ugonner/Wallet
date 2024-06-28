@@ -1,4 +1,4 @@
-namespace BFFApi.Middlewares;
+namespace Api.Middlewares;
 
 public class ResponseFormatterFilter
 {

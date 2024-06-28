@@ -1,4 +1,4 @@
-namespace BFFApi.ContextFactory;
+namespace Api.ContextFactory;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +13,7 @@ public class RepositoryContextFactory: IDesignTimeDbContextFactory<RepositoryCon
         .AddJsonFile("appsettings.json").Build();
 
         var builder = new DbContextOptionsBuilder()
-        .UseMySQL(config.GetConnectionString("sqlConnection"), b => b.MigrationsAssembly("BFFApi"));
+        .UseMySQL(config.GetConnectionString("sqlConnection"), b => b.MigrationsAssembly("Api"));
         
         return new RepositoryContext(builder.Options);
     }

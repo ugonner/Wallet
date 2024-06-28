@@ -1,4 +1,4 @@
-namespace BFFApi.Middlewares;
+namespace Api.Middlewares;
 using Contracts.ServiceContracts;
 using Shared;
 
@@ -22,7 +22,7 @@ public static class ConfigureExceptiionHandlerExtension
 
                     context.Response.StatusCode = 500;
                      response.Errored("something went wrong, try later", 500);
-                     context.Response.WriteAsync(response.ToString());
+                     await context.Response.WriteAsync(response.ToString());
                     }
                 });
             

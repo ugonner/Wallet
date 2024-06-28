@@ -1,6 +1,6 @@
 using System.Text;
-using BFFApi.Extensions;
-using BFFApi.Middlewares;
+using Api.Extensions;
+using Api.Middlewares;
 using Contracts.ServiceContracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +14,8 @@ IConfigurationRoot config = builder.Configuration;
 
 //builder.Services.ConfigureGlobalConfiguration();
 builder.Services.ConfigureDbContext(config);
+builder.Services.ConfigureRabbitMQServerInit(config);
+builder.Services.ConfigureRabbitMQService();
 builder.Services.ConfigureAutoMapper();
 builder.Services.ConfigureLogger();
 builder.Services.ConfigureRepositoryManager();
@@ -90,7 +92,7 @@ app.MapGet("/weatherforecast", () =>
 app.MapControllers();
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+record WeatherForecast(DateOnly Date, int TemperatureC, string Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

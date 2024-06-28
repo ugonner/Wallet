@@ -12,8 +12,8 @@ public class ServiceManager : IServiceManager
     public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
     {
         _repositoryManager = repositoryManager;
-        _userService = new Lazy<IUserService>(new UserService(repositoryManager, mapper));
     }
 
     public IUserService UserService => _userService.Value;
+
 }

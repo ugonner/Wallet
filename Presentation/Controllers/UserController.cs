@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Contracts.ServiceContracts;
 using Shared;
 using Shared.DTOs.UserDTOs;
+using Services;
 
 [ApiController]
 [Route("{Controller}")]
@@ -24,10 +25,14 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("login")]
+    [HttpGet()]
     public async Task<IActionResult> Login([FromBody()] LoginDTO payload)
     {
-        var res = await _serviceManager.UserService.LoginUser(payload);
+        var res = await MessageSender<string, string>.SendMessage(new RequestMessageDTO<string>(){
+            EventName = "ugonna hello",
+            Data = "i am here"
+        });
+        
         return Ok(res);
     }
 

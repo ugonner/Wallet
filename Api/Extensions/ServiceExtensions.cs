@@ -1,4 +1,4 @@
-namespace BFFApi.Extensions;
+namespace Api.Extensions;
 
 using Microsoft.EntityFrameworkCore;
 using Contracts.ServiceContracts;
