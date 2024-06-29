@@ -1,5 +1,6 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Services;
 using System;
 using System.Text;
 using System.Text.Json;
@@ -14,8 +15,12 @@ public class RabbitMqRpcClient : IDisposable
     private readonly IBasicProperties _props;
     private readonly TaskCompletionSource<string> _responseTask;
 
+    private readonly  string _consumerQueueName = GlobalConfiguration.GlobalConfigurationSettings.GetSection("rpc")["rpc_queue"];
     public RabbitMqRpcClient(string hostname)
     {
+        try
+        {
+            
         var factory = new ConnectionFactory() { HostName = hostname };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
@@ -38,13 +43,18 @@ public class RabbitMqRpcClient : IDisposable
         };
 
         _channel.BasicConsume(consumer: _consumer, queue: _replyQueueName, autoAck: true);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine($"Error instantiating client {ex.Message}");
+        }
     }
 
     public async Task<string> CallAsync(string message)
     {
         var body = Encoding.UTF8.GetBytes(message);
         
-        _channel.BasicPublish(exchange: "", routingKey: "rpc_queue", basicProperties: _props, body: body);
+        _channel.BasicPublish(exchange: "", routingKey: _consumerQueueName, basicProperties: _props, body: body);
 
         return await _responseTask.Task;
     }

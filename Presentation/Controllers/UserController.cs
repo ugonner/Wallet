@@ -26,14 +26,24 @@ public class UserController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> Login([FromBody()] LoginDTO payload)
+    public IActionResult Go()
     {
+        Console.WriteLine("sending");
+        return Ok("good luck");
+    }
+
+
+    [HttpGet("go")]
+    public async Task<IActionResult> Login()
+    {
+
         var res = await MessageSender<string, string>.SendMessage(new RequestMessageDTO<string>(){
             EventName = "ugonna hello",
             Data = "i am here"
         });
-        
         return Ok(res);
+        
+        
     }
 
 }

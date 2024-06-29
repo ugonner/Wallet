@@ -14,7 +14,9 @@ IConfigurationRoot config = builder.Configuration;
 
 //builder.Services.ConfigureGlobalConfiguration();
 builder.Services.ConfigureDbContext(config);
-builder.Services.ConfigureRabbitMQServerInit(config);
+
+//builder.Services.ConfigureRabbitMQServerInit(config);/builder.Services.ConfigureRabbitMQService();
+//builder.Services.ConfigureRabbitMQServerInit(config);
 builder.Services.ConfigureRabbitMQService();
 builder.Services.ConfigureAutoMapper();
 builder.Services.ConfigureLogger();

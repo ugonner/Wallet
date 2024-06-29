@@ -9,7 +9,7 @@ public static class RabbitMQServerConfiguration
     {
         var rpcSettings = configuration.GetSection("rpc");
         service.AddSingleton<RabbitMqRpcServer>(
-            (opt) => new RabbitMqRpcServer(hostname: rpcSettings["rpc_hostname"], queueName: rpcSettings["rpc_queue"])
+            (opt) => new RabbitMqRpcServer()
         );
     }
 }
